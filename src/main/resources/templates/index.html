@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Calculator Api</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!--    <link rel="stylesheet" type="text/css" media="all"-->
+    <!--          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />-->
 </head>
+
 <body>
-$END$
+<h1>Calculator App</h1>
+
+<p>This is a web application built using Spring MVC and Thymeleaf <br>
+    that adds two numbers provided as path variables in the URL and <br>
+    displays the result in a user-friendly web page.</p>
+
+<p>How to Use:<br>
+
+    Access the App: Open your web browser and visit the app's URL <br>
+    (e.g., http://localhost:8080).<br>
+
+    Perform Addition:<br>
+
+    Add two numbers by appending /add/{num1}/{num2} to the URL, <br>
+    where {num1} and {num2} are the numbers to add.<br>
+
+    Example: http://localhost:8080/add/5/7 <br>
+    will calculate and display the sum of 5 and 7.</p>
 </body>
+
 </html>
