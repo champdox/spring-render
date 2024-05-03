@@ -1,16 +1,16 @@
 package com.example.demo;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
-@Slf4j
 @Controller
 //@RequestMapping("/calculator")
 public class DemoController {
@@ -25,13 +25,11 @@ public class DemoController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("notif", "No numbers to add");
-        log.info("adding");
         return "result";
     }
 
-    @PostMapping("/webhook")
+    @PostMapping("/webhook1")
     public ResponseEntity<String> receiveMessage(String payload) {
-        log.info("webHOOKED" + payload);
         return ResponseEntity.ok().build();
     }
 
@@ -45,6 +43,18 @@ public class DemoController {
 
         return "result";
 
+    }
+    @GetMapping(value = "/webhook", produces = "text/plain")
+    public ResponseEntity<String> verifyWebhook(@RequestParam("hub.mode") String mode,
+                                                @RequestParam("hub.verify_token") String verifyToken,
+                                                @RequestParam("hub.challenge") String challenge) {
+        String VERIFY_TOKEN = "your_verify_token"; // Your verify token
+
+        if ("subscribe".equals(mode) && VERIFY_TOKEN.equals(verifyToken)) {
+            return ResponseEntity.ok(challenge);
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
     }
 
 
